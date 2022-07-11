@@ -81,11 +81,6 @@ func Setup(db *gorm.DB) *gin.Engine {
 		app.POST("/progress/uninstall", api.GetUnInstallProgress)
 		app.POST("/stats", api.AppStats)
 	}
-	appControl := apiRoutes.Group("/apps/control")
-	{
-		appControl.POST("/", api.AppService)
-		appControl.POST("/bulk", api.AppService)
-	}
 
 	device := apiRoutes.Group("/device")
 	{
@@ -134,6 +129,11 @@ func Setup(db *gorm.DB) *gin.Engine {
 	{
 		zip.POST("/unzip", api.Unzip)
 		zip.POST("/zip", api.ZipDir)
+	}
+
+	systemctl := apiRoutes.Group("/systemctl")
+	{
+		systemctl.POST("/", api.SystemCtl)
 	}
 
 	return engine
